@@ -1,13 +1,12 @@
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
+/*const favicon = require('serve-favicon');
+const logger = require('morgan');*/
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const application = require('./routes/app');
-const admin = require('./routes/admin');
-//var users = require('./routes/users');
+const application = require('./server/app/app');
+const admin = require('./server/admin/admin');
 
 const app = express();
 
@@ -17,7 +16,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
