@@ -4,19 +4,19 @@ import axios from "axios";
 
 export default class Main extends Component {
 
-    getInitialState() {
+    /*getInitialState() {
         return {
             email: '',
             password: ''
         }
-    }
+    }*/
+
 
     onAuth(e){
         e.preventDefault();
         const { email, password } = this.state;
         return axios.post("/admin/auth",{username:email, password:password});
     }
-
 
     render(){
 
@@ -31,15 +31,14 @@ export default class Main extends Component {
             bottom: 0
         };
 
-
         return (
             <div style={center}>
                 <form method="post" onSubmit={this.onAuth}>
-                    <TextField id="email" name="email" type="text" placeholder="email1"/>
+                    <TextField id="email" name="email" type="text" placeholder="email2211"/>
                     <br/>
-                    <TextField id="password" name="password" type="password" placeholder="password1"/>
+                    <TextField id="password" name="password" type="password" placeholder="password44"/>
                     <br/>
-                    <FlatButton type="submit" label="Default1" />
+                    <FlatButton type="submit" label="Login77" />
                 </form>
             </div>
         )
