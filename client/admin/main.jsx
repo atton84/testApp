@@ -1,14 +1,35 @@
 import React, {Component} from "react";
-import {MuiThemeProvider} from "material-ui";
+import {MuiThemeProvider, Snackbar} from "material-ui";
 import Auth from "./auth.jsx";
+import Admin from "./admin.jsx";
+import {BrowserRouter, Route} from "react-router-dom";
 
 export default class Main extends Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+            token:''
+        }
+    }
+
+    ProtectedComponent(){
+        if (!this.state.token)
+            return Auth;
+            return Admin;
+    }
+
+    componentDidMount(){
+        this.setState({token:localStorage.getItem("token")});
+    }
 
     render(){
 
         return (
             <MuiThemeProvider>
-                <Auth/>
+                <BrowserRouter>
+                    <Route path="/" component={this.ProtectedComponent()} />
+                </BrowserRouter>
             </MuiThemeProvider>
         )
     };

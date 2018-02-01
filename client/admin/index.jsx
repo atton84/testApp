@@ -7,7 +7,11 @@ import Main from "./main.jsx";
 /*let div = document.getElementById("app");
 console.log(div);*/
 const renderApp = (Component) => {
-    ReactDOM.render(<AppContainer><Component /></AppContainer>, document.getElementById("app"));
+    ReactDOM.render(
+        <AppContainer>
+            <Component />
+        </AppContainer>
+        , document.getElementById("app"));
 }
 
 renderApp(Main);
