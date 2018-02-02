@@ -13,22 +13,12 @@ export default class Main extends Component {
         }
     }
 
-    ProtectedComponent(){
-        if (!this.state.token)
-            return Auth;
-            return Admin;
-    }
-
-    componentDidMount(){
-        this.setState({token:localStorage.getItem("token")});
-    }
-
     render(){
 
         return (
             <MuiThemeProvider>
                 <BrowserRouter>
-                    <Route path="/" component={this.ProtectedComponent()} />
+                    <Route path="/" component={Auth} />
                 </BrowserRouter>
             </MuiThemeProvider>
         )

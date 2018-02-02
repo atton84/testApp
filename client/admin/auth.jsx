@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {TextField, FlatButton} from "material-ui";
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import Admin from "./admin.jsx";
 
 export default class Auth extends Component {
 
@@ -14,17 +14,9 @@ export default class Auth extends Component {
         }
     }
 
-
-    /*componentDidUpdate(){
-        console.log(this.state,"didUpdate");
-    }*/
-    /*getInitialState() {
-        return {
-            email: '',
-            password: ''
-        }
-    }*/
-
+    componentDidMount(){
+        this.setState({token:localStorage.getItem("token")});
+    }
 
     onAuth(event){
         event.preventDefault();
@@ -32,7 +24,7 @@ export default class Auth extends Component {
         axios.post("/admin/auth",{username:email, password:password})
              .then(res=>{
                  localStorage.setItem("token",res.data.token);
-                 this.props.history.push('/');
+                 this.setState({token:res.data.token});
              },error=>{
                 console.log(error);
              });
@@ -45,6 +37,7 @@ export default class Auth extends Component {
     onPasswordChange(event){
         this.setState({password:event.target.value});
     }
+
 
     render(){
 
@@ -59,16 +52,20 @@ export default class Auth extends Component {
             bottom: 0
         };
 
-        return (
-            <div style={center}>
-                <form method="post" onSubmit={(event)=>this.onAuth(event)}>
-                    <TextField id="email" name="email" type="text" placeholder="email" onChange={(event)=>this.onEmailChange(event)}/>
-                    <br/>
-                    <TextField id="password" name="password" type="password" placeholder="password" onChange={(event)=>this.onPasswordChange(event)}/>
-                    <br/>
-                    <FlatButton type="submit" label="Login" />
-                </form>
-            </div>
-        )
+        let jsx = null;
+        if (!this.state.token)
+            jsx =<div style={center}>
+                    <form method="post" onSubmit={(event)=>this.onAuth(event)}>
+                        <TextField id="email" name="email" type="text" placeholder="email" onChange={(event)=>this.onEmailChange(event)}/>
+                        <br/>
+                        <TextField id="password" name="password" type="password" placeholder="password" onChange={(event)=>this.onPasswordChange(event)}/>
+                        <br/>
+                        <FlatButton type="submit" label="Login" />
+                    </form>
+                </div>;
+         else
+             jsx = <Admin/>;
+
+        return jsx;
     };
 }

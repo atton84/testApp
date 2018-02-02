@@ -1,27 +1,25 @@
 import React, {Component} from "react";
-/*import {TextField, FlatButton} from "material-ui";
-import axios from "axios";
+import {AppBar, FlatButton} from "material-ui";
+import FontIcon from 'material-ui/FontIcon';
+/*import axios from "axios";
 import {Redirect} from "react-router-dom";*/
 
 export default class Admin extends Component {
 
+    onLogout(event){
+        localStorage.removeItem("token");
+        //this.props.dispatch(pushPath('/'));
+        console.log("logout");
+    }
+
     render(){
 
-        let center={
-            width: "250px",
-            height: "200px",
-            position: "fixed",
-            margin: "auto",
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0
-        };
-
         return (
-            <div style={center}>
-               Main Area
-            </div>
+            <AppBar
+                title="Title"
+                iconElementRight={<FlatButton>Logout</FlatButton>}
+                onRightIconButtonClick={(event)=>this.onLogout(event)}
+            />
         )
     };
 }
