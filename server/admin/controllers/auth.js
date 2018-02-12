@@ -15,7 +15,7 @@ const auth = {
             }
             // we store the updated information in req.user again
             req.user = {
-                id: user.id
+                id: user._id
             };
             next();
         });
@@ -23,7 +23,7 @@ const auth = {
 
     generateToken(req, res, next) {
         req.token = jwt.sign({
-            id: req.user.id,
+            id: req.user._id,
         }, "server secret", {
             expiresIn: 60*60*24
         });

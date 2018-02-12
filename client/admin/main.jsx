@@ -1,8 +1,10 @@
 import React, {Component} from "react";
-import {MuiThemeProvider, Snackbar} from "material-ui";
+import {MuiThemeProvider, Snackbar, createMuiTheme} from "material-ui";
 import Auth from "./auth.jsx";
 import Admin from "./admin.jsx";
-import {BrowserRouter, Route} from "react-router-dom";
+import Catalog from "./catalog.jsx";
+import Users from "./users.jsx";
+import {HashRouter, Route, hashHistory} from "react-router-dom";
 
 export default class Main extends Component {
 
@@ -13,13 +15,20 @@ export default class Main extends Component {
         }
     }
 
+
     render(){
 
+        const theme = createMuiTheme();
+
         return (
-            <MuiThemeProvider>
-                <BrowserRouter>
-                    <Route path="/" component={Auth} />
-                </BrowserRouter>
+            <MuiThemeProvider theme={theme}>
+                <HashRouter history={hashHistory}>
+                    <div>
+                        <Route path="/" component={Auth} />
+                        <Route path="/catalog" component={Catalog} />
+                        <Route path="/users" component={Users} />
+                    </div>
+                </HashRouter>
             </MuiThemeProvider>
         )
     };

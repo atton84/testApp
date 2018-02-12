@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const application = require('./server/app/app');
 const admin = require('./server/admin/admin');
 
+const mongoose = require('mongoose');
+//mongoose.Promise = global.Promise;
 const app = express();
 
 // view engine setup
@@ -25,6 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', application);
 app.use('/admin', admin);
 //app.use('/users', users);
+
+mongoose.connect('mongodb://localhost:27017/shop')
+    .then(() =>  console.log('connection succesful'))
+    .catch((err) => console.error(err));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

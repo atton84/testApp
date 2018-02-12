@@ -1,22 +1,18 @@
 
 const passport = require('passport');
 const Strategy = require('passport-local');
+const User = require("../admin/models/User");
 
 passport.use(new Strategy(
     (username, password, done) => {
         // database dummy - find user and verify password
-        if(username === 'atton84' && password === '123'){
-            done(null, {
-                id: 84,
-                firstname: 'atton84',
-                lastname: 'name',
-                email: 'atton84@gmail.com',
-                verified: true
-            });
-        }
-        else {
-            done(null, false);
-        }
+        User.model.findOne({username:username,password:password},(err,res)=> {
+            if(err)
+                done(null, false);
+
+            console.log(res);
+            done(null, res);
+        });
     }
 ));
 
